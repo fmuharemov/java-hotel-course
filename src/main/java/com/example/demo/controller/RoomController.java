@@ -53,7 +53,7 @@ public class RoomController {
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Room room){
         try {
-            roomService.update(room, id);
+            roomService .update(room, id);
             return new ResponseEntity<>("Room updated!", HttpStatus.OK);
         }catch (NoSuchElementException e){
             return new ResponseEntity<>("Room with id "+ id + " is not found", HttpStatus.NOT_FOUND);

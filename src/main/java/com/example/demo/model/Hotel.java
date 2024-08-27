@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "hotel")
 @NoArgsConstructor
@@ -25,6 +27,8 @@ public class Hotel {
     @Column(name = "city")
     private String city;
 
+    @OneToMany(mappedBy = "hotel")
+    private List<Room> room;
     public Long getId() {
         return id;
     }

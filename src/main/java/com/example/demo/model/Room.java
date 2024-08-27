@@ -23,6 +23,9 @@ public class Room {
     @Column(name="price")
     private double price;
 
+    @ManyToOne
+    private Hotel hotel;
+
     public int getType() {
         return type;
     }
