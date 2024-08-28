@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,6 +29,7 @@ public class Hotel {
     private String city;
 
     @OneToMany(mappedBy = "hotel")
+    @JsonIgnore
     private List<Room> room;
     public Long getId() {
         return id;
