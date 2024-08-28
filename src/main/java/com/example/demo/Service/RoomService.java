@@ -1,6 +1,7 @@
 package com.example.demo.Service;
 
 import com.example.demo.Exception.RoomNotFoundException;
+import com.example.demo.dto.RoomDTO;
 import com.example.demo.model.Hotel;
 import com.example.demo.model.Room;
 import com.example.demo.repository.RoomRepository;
@@ -15,12 +16,19 @@ import java.util.stream.Collectors;
 public class RoomService {
     @Autowired
     RoomRepository roomRepository;
-
+    @Autowired
+    HotelService hotelService;
     public List<Room> findAll(){ return roomRepository.findAll();}
 
-    public String createRoom(Room room){
+    public String createRoom(RoomDTO dto){
+        Hotel hotel = hotelService.findById(dto.getHotelId());
+        Room room = new Room();
+        room.setId(dto.getId());
+        room.setType(dto.getType());
+        room.setRoomNumber(dto.getRoomNumber());
+        room.setPrice(dto.getPrice());
         roomRepository.save(room);
-        return "Room is saved!";
+        return "Room created successfully!";
     }
     public Room findRoomById(Long id) throws RoomNotFoundException { return roomRepository.findById(id).orElseThrow(()-> new RoomNotFoundException("Room not found with id: "+ id));}
     public List<Room> findRoomByBedCount(int bedCount){

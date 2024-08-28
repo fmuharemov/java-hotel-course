@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.Exception.RoomNotFoundException;
 import com.example.demo.Service.RoomService;
+import com.example.demo.dto.RoomDTO;
 import com.example.demo.model.Hotel;
 import com.example.demo.model.Room;
 import org.springframework.http.HttpStatus;
@@ -22,10 +23,6 @@ public class RoomController {
     @GetMapping
     public List<Room> findAllRooms(){
         return roomService.findAll();
-    }
-    @PostMapping
-    public String createRoom(@RequestBody Room room){
-        return roomService.createRoom(room);
     }
     @GetMapping("/{id}")
     public ResponseEntity<?> findRoomById(@PathVariable Long id) {
@@ -57,6 +54,14 @@ public class RoomController {
             return new ResponseEntity<>("Room updated!", HttpStatus.OK);
         }catch (NoSuchElementException e){
             return new ResponseEntity<>("Room with id "+ id + " is not found", HttpStatus.NOT_FOUND);
+        }
+    }
+    @PostMapping()
+    public ResponseEntity<?> createRoom(@RequestBody RoomDTO dto){
+        try{
+            return new ResponseEntity<>(roomService.createRoom(dto), HttpStatus.OK);
+        }catch (NoSuchElementException e){
+            return new ResponseEntity<>("Hotel with id "+ dto.getHotelId() + " is not found", HttpStatus.NOT_FOUND);
         }
     }
 }
